@@ -1,0 +1,17 @@
+{
+  "scriptFile" : "..\\java-penguin-1.0-SNAPSHOT.jar",
+  "entryPoint" : "com.function.JavaMyFirstPenguin.run",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "name" : "req",
+    "direction" : "in",
+    "route" : "JavaMyFirstPenguin/{queryString}",
+    "webHookType" : "NONE",
+    "authLevel" : "anonymous",
+    "methods" : [ "GET", "POST", "OPTIONS" ]
+  }, {
+    "type" : "http",
+    "name" : "$return",
+    "direction" : "out"
+  } ]
+}
