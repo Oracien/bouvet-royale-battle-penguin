@@ -44,14 +44,14 @@ public class Action {
 
     private Match match;
 
-    private String moveTowardsCenterOfMap()
+    public String moveTowardsCenterOfMap()
     {
         int centerPointx = match.mapWidth / 2;
         int centerPointy = match.mapHeight / 2;
         return moveTowardsPoint(centerPointx, centerPointy);
     }
 
-    private String moveTowardsPoint(int pointx, int pointy)
+    public String moveTowardsPoint(int pointx, int pointy)
     {
         int  penguinPositionx = match.you.x;
         int penguinPositiony = match.you.y;
@@ -80,7 +80,7 @@ public class Action {
         return plannedAction;
     }
 
-    private boolean doesCellContainWall(int x, int y)
+    public boolean doesCellContainWall(int x, int y)
     {
         for (int i = 0; i < match.walls.length; i++) {
             if (match.walls[i].x == x && match.walls[i].y == y) {
@@ -90,7 +90,7 @@ public class Action {
         return false;
     }
 
-    private boolean wallInFrontOfPenguin()
+    public boolean wallInFrontOfPenguin()
     {
         switch (match.you.direction)
         {
