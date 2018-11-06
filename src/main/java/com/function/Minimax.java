@@ -44,8 +44,12 @@ public class Minimax {
 	    default:
 		break;
 	}
-	value += (50 - distanceFromCenter);
+	value += (50 - distanceFromCenter(gameState));
 	return value;
+    }
+
+    private int distanceFromCenter(Match gameState){
+	return Math.abs(gameState.you.x-gameState.mapWidth/2)+Math.abs(gameState.you.y-gameState.mapHeight/2);
     }
 
     private Action[] getLegalActions(Match gameState, int agentIndex) {
