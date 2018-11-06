@@ -113,6 +113,7 @@ public class Action {
 
     String chooseAction() {
         String response;
+
         response = moveTowardsCenterOfMap();
         return response;
     }

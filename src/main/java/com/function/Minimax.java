@@ -1,10 +1,13 @@
 package com.function;
 
+import java.util.Arrays;
+
 public class Minimax {
 
     private int evaluateState(Match gameState) {
-        int negativeValue = getNegativeValue(Match gameState);
-        return value;
+        int negativeValue = getNegativeValue(gameState);
+        int positiveValue = getPositiveValue(gameState);
+        return negativeValue + positiveValue;
     }
 
     private int getNegativeValue(Match gameState) {
@@ -64,20 +67,29 @@ public class Minimax {
             double value = -1e100;
             Action[] possibleActions = getLegalActions(gameState, agentIndex);
             for (Action action : possibleActions) {
-                value = Math.max(value, getValue(generateSuccessorState(gameState, agentIndex, action), depth-1, agentIndex+1));
+                value = Math.max(value, getValue(generateSuccessorState(gameState, agentIndex, action), depth-1, (agentIndex+1) % 2));
             }
             return value;
         }
         double value = 1e100;
         Action[] possibleActions = getLegalActions(gameState, agentIndex);
         for (Action action : possibleActions) {
-            value = Math.min(value, getValue(generateSuccessorState(gameState, agentIndex, action), depth-1, agentIndex+1));
+            value = Math.min(value, getValue(generateSuccessorState(gameState, agentIndex, action), depth-1, (agentIndex+1) %2));
         }
         return value;
     }
 
-    public Action chooseAction() {
-
+    public Action chooseAction(Match gameState) {
+        Action[] possibleActions = getLegalActions(gameState, 0);
+        double[] values = new double[possibleActions.length];
+        for (int i = 0; i < possibleActions.length; i++) {
+            values[i] = getValue(generateSuccessorState(gameState, 0, possibleActions[i]), 3, 1);
+        }
+        double maxValue = -1e100;
+        for (double value : values) {
+            maxValue = Math.max(maxValue, value);
+        }
+        return possibleActions[Arrays.asList(values).indexOf(maxValue)];
     }
 
 }
