@@ -1,9 +1,10 @@
 package com.function;
 
+import com.function.data.objects.Penguin;
 import com.google.gson.Gson;
-import java.util.*;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
+import java.util.Optional;
 
 /**
  * Azure Functions with HTTP Trigger.

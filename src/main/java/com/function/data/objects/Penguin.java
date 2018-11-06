@@ -1,4 +1,4 @@
-package com.function;
+package com.function.data.objects;
 
 
 public class Penguin {
