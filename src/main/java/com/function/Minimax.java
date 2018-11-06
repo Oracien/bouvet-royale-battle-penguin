@@ -49,7 +49,88 @@ public class Minimax {
     }
 
     private Action[] getLegalActions(Match gameState, int agentIndex) {
-
+	Action[] actions = ["pass", "rotate-right", "rotate-left"];
+	if(agentIndex==0){
+	    if(gameState.you.ammo>0){
+		actions.add("shoot");
+	    }
+	    switch (gameState.you.direction)
+	    {
+		case "top":
+		    if(!doesCellContainWall(gameState.you.x, --gameState.you.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(gameState.you.x, ++gameState.you.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "bottom":
+		    if(!doesCellContainWall(gameState.you.x, ++gameState.you.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(gameState.you.x, --gameState.you.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "left":
+		    if(!doesCellContainWall(--gameState.you.x, gameState.you.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(++gameState.you.x, gameState.you.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "right":
+		    if(!doesCellContainWall(++gameState.you.x, gameState.you.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(--gameState.you.x, gameState.you.y)){
+			actions.add("retreat");
+		    }
+		    break;
+	    }
+	}
+	else{
+	    if(gameState.enemy.ammo>0){
+		actions.add("shoot");
+	    }
+	    switch (gameState.enemy.direction)
+	    {
+		case "top":
+		    if(!doesCellContainWall(gameState.enemy.x, --gameState.enemy.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(gameState.enemy.x, ++gameState.enemy.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "bottom":
+		    if(!doesCellContainWall(gameState.enemy.x, ++gameState.enemy.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(gameState.enemy.x, --gameState.enemy.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "left":
+		    if(!doesCellContainWall(--gameState.enemy.x, gameState.enemy.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(++gameState.enemy.x, gameState.enemy.y)){
+			actions.add("retreat");
+		    }
+		    break;
+		case "right":
+		    if(!doesCellContainWall(++gameState.enemy.x, gameState.enemy.y)){
+			actions.add("advance");
+		    }
+		    else if(!doesCellContainWall(--gameState.enemy.x, gameState.enemy.y)){
+			actions.add("retreat");
+		    }
+		    break;
+	    }
+	}
+	return actions;
     }
 
     private Match generateSuccessorState(Match gameState, int agentIndex, Action action) {
