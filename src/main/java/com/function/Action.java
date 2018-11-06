@@ -113,8 +113,8 @@ public class Action {
 
     String chooseAction() {
         String response;
-
-        response = moveTowardsCenterOfMap();
+        Minimax minimax = new Minimax();
+        response = minimax.chooseAction(match);
         return response;
     }
 }
