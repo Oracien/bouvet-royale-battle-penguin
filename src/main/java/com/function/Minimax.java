@@ -81,8 +81,8 @@ public class Minimax {
 	List<String> actions = new ArrayList<>(Arrays.asList("pass", "rotate-right", "rotate-left"));
 	Action action = new Action(gameState);
 	if(agentIndex==0){
-	    if(gameState.you.ammo>0){
-		actions.add("shoot");
+	    if(gameState.you.ammo>0 && gameState.enemies[0].direction != null){
+			actions.add("shoot");
 	    }
 	    switch (gameState.you.direction)
 	    {
@@ -119,11 +119,14 @@ public class Minimax {
 		    }
 		    break;
 	    }
-	}
-	{
-	    if(gameState.enemies[0].ammo>0){
-		actions.add("shoot");
+	} else {
+	    if(gameState.enemies[0].ammo>0 && gameState.enemies[0].direction != null){
+			actions.add("shoot");
 	    }
+	    if (gameState.enemies[0].direction == null) {
+	    	actions.clear();
+	    	return actions.toArray(new String[0]);
+		}
 	    switch (gameState.enemies[0].direction)
 	    {
 		case "top":
