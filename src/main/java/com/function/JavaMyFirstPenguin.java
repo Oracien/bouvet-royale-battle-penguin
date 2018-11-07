@@ -4,6 +4,7 @@ import com.function.data.objects.Penguin;
 import com.google.gson.Gson;
 import com.microsoft.azure.functions.annotation.*;
 import com.microsoft.azure.functions.*;
+
 import java.util.Optional;
 
 /**
@@ -31,5 +32,46 @@ public class JavaMyFirstPenguin {
         }
 
         return request.createResponseBuilder(HttpStatus.OK).body("Hello").build();
+    }
+
+    public static void main(String[] args){
+        Match gameState = new Match();
+        Match.You you = gameState.new You();
+        you.x=10;
+        you.y=10;
+        you.strength=500;
+        you.direction="right";
+        you.weaponRange=5;
+        you.ammo=50;
+        you.bonus="";
+        you.weaponDamage=100;
+        you.status="";
+        you.targetRange=5;
+        Match.Enemy enemy = gameState.new Enemy();
+        enemy.x=50;
+        enemy.y=50;
+        enemy.strength=500;
+        enemy.direction="top";
+        enemy.ammo=0;
+        enemy.weaponDamage=100;
+        enemy.weaponRange=5;
+        gameState.matchId="test";
+        gameState.mapWidth=100;
+        gameState.mapHeight=100;
+        gameState.suddenDeath=100;
+        gameState.wallDamage=100;
+        gameState.penguinDamage=100;
+        gameState.weaponDamage=100;
+        gameState.visibility=5;
+        gameState.weaponRange=5;
+        gameState.you=you;
+        gameState.enemies= new Match.Enemy[]{enemy};
+        gameState.bonusTiles=new Match.Bonustile[0];
+        gameState.walls=new Match.Wall[0];
+        gameState.fire= new Match.Fire[0];
+
+        Action action = new Action(gameState);
+        String chosenAction = action.chooseAction();
+        System.out.println(chosenAction);
     }
 }

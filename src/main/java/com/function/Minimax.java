@@ -441,7 +441,7 @@ public class Minimax {
     }
 
     private boolean WillEnemyHit(Match gameState) {
-        switch(gameState.you.direction) {
+        switch(gameState.enemies[0].direction) {
             case "top":
                 return (isSameField(gameState.enemies[0].x, gameState.you.x) &&
                         isWithinLimit(gameState.you.y, gameState.enemies[0].y, gameState.enemies[0].weaponRange));
@@ -480,15 +480,20 @@ public class Minimax {
 
     public String chooseAction(Match gameState) {
         String[] possibleActions = getLegalActions(gameState, 0);
+        System.out.println(possibleActions.length);
         double[] values = new double[possibleActions.length];
         for (int i = 0; i < possibleActions.length; i++) {
             values[i] = getValue(generateSuccessorState(gameState, 0, possibleActions[i]), 3, 1);
         }
         double maxValue = -1e100;
-        for (double value : values) {
-            maxValue = Math.max(maxValue, value);
+        int where = -1;
+        for (int i=0; i<values.length; i++) {
+            if(values[i]>maxValue){
+                maxValue = values[i];
+                where = i;
+            }
         }
-        return possibleActions[Arrays.asList(values).indexOf(maxValue)];
+        return possibleActions[where];
     }
 
 
