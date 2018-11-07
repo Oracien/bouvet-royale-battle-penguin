@@ -441,7 +441,7 @@ public class Minimax {
     }
 
     private boolean WillEnemyHit(Match gameState) {
-        switch(gameState.you.direction) {
+        switch(gameState.enemies[0].direction) {
             case "top":
                 return (isSameField(gameState.enemies[0].x, gameState.you.x) &&
                         isWithinLimit(gameState.you.y, gameState.enemies[0].y, gameState.enemies[0].weaponRange));
