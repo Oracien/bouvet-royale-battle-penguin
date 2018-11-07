@@ -114,7 +114,11 @@ public class Action {
     String chooseAction() {
         String response;
         Minimax minimax = new Minimax();
-        response = minimax.chooseAction(match);
+        try {
+            response = minimax.chooseAction(match);
+        } catch (Exception e){
+            response = "shoot";
+        }
         return response;
     }
 }
