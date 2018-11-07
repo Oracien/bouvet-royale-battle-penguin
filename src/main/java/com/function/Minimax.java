@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.function.Action;
-
 public class Minimax {
 
     private int evaluateState(Match gameState) {
@@ -288,7 +286,7 @@ public class Minimax {
             }
             }
             if(action.equals("shoot")) {
-                if(willHit(gameState)) {
+                if(willYouHit(gameState)) {
                     gameState.enemies[0].strength -= gameState.you.weaponDamage;
                     return gameState;
             }
@@ -408,7 +406,7 @@ public class Minimax {
                 }
             }
         if(action.equals("shoot")) {
-            if(willHit(gameState)) {
+            if(WillEnemyHit(gameState)) {
                 gameState.you.strength -= gameState.enemies[0].weaponDamage;
                 return gameState;
             }
@@ -424,7 +422,7 @@ public class Minimax {
         return position1 == position2;
     }
 
-    private boolean willHit(Match gameState) {
+    private boolean willYouHit(Match gameState) {
         switch(gameState.you.direction) {
             case "bottom":
                 return (isSameField(gameState.you.x, gameState.enemies[0].x) &&
@@ -438,6 +436,24 @@ public class Minimax {
             case "left":
                 return (isSameField(gameState.you.y, gameState.enemies[0].y) &&
                         isWithinLimit(gameState.you.x, gameState.enemies[0].x, gameState.you.weaponRange));
+        }
+        return false;
+    }
+
+    private boolean WillEnemyHit(Match gameState) {
+        switch(gameState.you.direction) {
+            case "top":
+                return (isSameField(gameState.enemies[0].x, gameState.you.x) &&
+                        isWithinLimit(gameState.you.y, gameState.enemies[0].y, gameState.enemies[0].weaponRange));
+            case "bottom":
+                return (isSameField(gameState.enemies[0].x, gameState.you.x) &&
+                        isWithinLimit(gameState.enemies[0].y, gameState.you.y, gameState.enemies[0].weaponRange));
+            case "left":
+                return (isSameField(gameState.enemies[0].y, gameState.you.y) &&
+                        isWithinLimit(gameState.you.x, gameState.enemies[0].x, gameState.you.weaponRange));
+            case "right":
+                return (isSameField(gameState.enemies[0].y, gameState.you.y) &&
+                        isWithinLimit(gameState.enemies[0].x, gameState.you.y, gameState.you.weaponRange));
         }
         return false;
     }
@@ -474,5 +490,6 @@ public class Minimax {
         }
         return possibleActions[Arrays.asList(values).indexOf(maxValue)];
     }
+
 
 }
